@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Lesson1.MVC</string>
+    <string name="app_name">My Application</string>
+    <string name="cancelMsg">Вы можете отменить операцию</string>
+    <string name="cancel_button_title">Отменить</string>
+    <string name="error_msg">\"При конвертации файла произошла ошибка \"</string>
 </resources>
