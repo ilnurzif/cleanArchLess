@@ -1,4 +1,4 @@
-package com.geek.prr2;
+package com.geek.myapplication;
 
 import org.junit.Test;
 

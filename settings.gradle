@@ -1,3 +1,2 @@
-rootProject.name='less2'
+rootProject.name='My Application'
 include ':app'
-include ':prr2'
