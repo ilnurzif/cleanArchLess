@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Lesson1.MVC</string>
+    <string name="app_name">Lesson4Retrofit</string>
+    <string name="repo_list_title">Список репозиториев</string>
 </resources>
