@@ -16,7 +16,6 @@ public class Presenter implements PresenterCallBack {
     private MainView mainView;
     private DetailedView detailedView;
     private Model model;
-
     public static Presenter getInstance() {
         if (presenter == null)
             presenter = new Presenter();
@@ -77,7 +76,6 @@ public class Presenter implements PresenterCallBack {
     public void callRecCount(Integer count) {
         if (count > 0) {
             model.loadAllUsersFromDB(); //загружаем данные из Room
-            model.loadAllUsersFromRealmDB(); //загружаем данные из Realme
         } else
             model.loadAllUsersFromRest();
     }
@@ -88,16 +86,6 @@ public class Presenter implements PresenterCallBack {
             model.loadRepos(userName);
         else
             callRepos(repos);
-    }
-
-    @Override
-    public void callRealmDatLoadTime(long res, long recCount) {
-        mainView.callRealmDatLoadTime(res, recCount);
-    }
-
-    @Override
-    public void callRoomDatLoadTime(long res, int recCount) {
-        mainView.callRoomDatLoadTime(res, recCount);
     }
 
     public void bindDetailedView(DetailedView detailedView) {

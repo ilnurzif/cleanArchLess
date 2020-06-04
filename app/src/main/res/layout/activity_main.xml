@@ -13,20 +13,6 @@
         android:layout_margin="10dp"
         android:text="Пользователи github"/>
 
-    <TextView
-        android:id="@+id/realmeLoadTimeTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Время загрузки данных realme:"/>
-
-    <TextView
-        android:id="@+id/roomLoadTimeTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Время загрузки данных room:"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/usersRW"
         android:layout_margin="10dp"
