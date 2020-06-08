@@ -1,4 +1,4 @@
-package geekbrains.ru.lesson4retrofit.dbbasecode.di.module;
+package geekbrains.ru.lesson4retrofit.di.module;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

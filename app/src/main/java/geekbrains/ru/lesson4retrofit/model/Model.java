@@ -11,9 +11,11 @@ import com.squareup.picasso.Target;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+
 import geekbrains.ru.lesson4retrofit.App;
 import geekbrains.ru.lesson4retrofit.dbbasecode.UserDao;
-import geekbrains.ru.lesson4retrofit.model.rest.GitHubUsersApi;
+import geekbrains.ru.lesson4retrofit.rest.GitHubUsersApi;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -24,9 +26,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Model {
-    private static String baseUrl = "https://api.github.com";
-    private GitHubUsersApi gitHubUsersApi;
-    private Retrofit retrofit;
     private PresenterCallBack presenterCallBack;
 
     UserDao userDao;
@@ -40,22 +39,22 @@ public class Model {
     @Inject
     Boolean isNetworkConnect;
 
+    @Inject
+    Retrofit retrofit;
+
+    @Inject
+    GitHubUsersApi gitHubUsersApi;
+
+    @Inject
+    @Named("RetrofitUsers")
+    Single<List<GitHubUser>> allRestUsers;
+
 
     public Model(PresenterCallBack presenterCallBack) {
         this.presenterCallBack = presenterCallBack;
-        initRetrofit();
         App.getComponent().inject(this);
         userDao=App.getComponent().getUserDao();
    }
-
-    private void initRetrofit() {
-        retrofit = new Retrofit.Builder().
-                baseUrl(baseUrl).
-                addCallAdapterFactory(RxJava2CallAdapterFactory.create()).
-                addConverterFactory(GsonConverterFactory.create()).
-                build();
-        gitHubUsersApi = retrofit.create(GitHubUsersApi.class);
-    }
 
     @SuppressLint("CheckResult")
     private void saveUsersInDb(final List<GitHubUser> userList) {
@@ -94,7 +93,7 @@ public class Model {
 
     public void loadAllUsersFromRest() {
         if  (isNetworkConnect) {
-            Disposable disposable = gitHubUsersApi.getUsers().retry(2)
+            Disposable disposable = allRestUsers
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new DisposableSingleObserver<List<GitHubUser>>() {
@@ -106,6 +105,7 @@ public class Model {
 
                         @Override
                         public void onError(Throwable e) {
+                            presenterCallBack.callError("loadAllUsersFromRest",e.getMessage());
                         }
                     });
         }
@@ -136,6 +136,7 @@ public class Model {
                     @SuppressLint("CheckResult")
                     @Override
                     public void onError(Throwable e) {
+                        presenterCallBack.callError("saveUserReposInDb",e.getMessage());
                     }
                 });
     }
@@ -159,8 +160,7 @@ public class Model {
     }
 
     public void loadRepos(final String userName) {
-        Single<List<UserRepo>> listSingle = gitHubUsersApi.getRepos(userName);
-        Disposable disposable = listSingle.retry(2)
+        Disposable disposable = gitHubUsersApi.getRepos(userName)
                 .map(userRepos -> {
                     for (int i = 0; i < userRepos.size(); i++) {
                         userRepos.get(i).setLogin(userName);
@@ -178,6 +178,7 @@ public class Model {
 
                     @Override
                     public void onError(Throwable e) {
+                        presenterCallBack.callError("loadRepos",e.getMessage());
                     }
                 });
     }

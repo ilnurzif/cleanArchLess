@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private void initPresenter() {
         presenter = Presenter.getInstance();
+        presenter.createModel();
     }
 
     @Override

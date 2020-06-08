@@ -1,4 +1,4 @@
-package geekbrains.ru.lesson4retrofit.model.rest;
+package geekbrains.ru.lesson4retrofit.rest;
 
 import java.util.List;
 
@@ -9,12 +9,12 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface GitHubUsersApi {
-    @GET("/users")
+    @GET("users")
     Single<List<GitHubUser>> getUsers();
 
-    @GET("/users/{user}")
+    @GET("users/{user}")
     Single<GitHubUser> getUsers(@Path("user") String user);
 
-    @GET("/users/{user}/repos")
+    @GET("users/{user}/repos")
     Single<List<UserRepo>> getRepos(@Path("user") String user);
 }

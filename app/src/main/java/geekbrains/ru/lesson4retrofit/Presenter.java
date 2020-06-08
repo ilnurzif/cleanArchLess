@@ -1,6 +1,7 @@
 package geekbrains.ru.lesson4retrofit;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Presenter implements PresenterCallBack {
     private MainView mainView;
     private DetailedView detailedView;
     private Model model;
+
     public static Presenter getInstance() {
         if (presenter == null)
             presenter = new Presenter();
@@ -23,7 +25,6 @@ public class Presenter implements PresenterCallBack {
     }
 
     private Presenter() {
-        model = new Model(this);
     }
 
     public void bindMainView(MainView mainView) {
@@ -88,11 +89,33 @@ public class Presenter implements PresenterCallBack {
             callRepos(repos);
     }
 
+    @Override
+    public void callError(String methodName, String errorMsg) {
+        Log.d("Debug", errMsg(methodName, errorMsg));
+    }
+
+    public String errMsg(String methodName, String errorMsg) {
+        if (methodName.equals("loadAllUsersFromRest")) {
+            return "Ошибка загрузки пользователей";
+        }
+        if (methodName.equals("saveUserReposInDb")) {
+            return "Не удалось сохранить пользователей в БД";
+        }
+        if (methodName.equals("loadRepos")) {
+            return "Ошибка загрузки репозитория пользователя";
+        }
+        return "другая ошибка";
+    }
+
     public void bindDetailedView(DetailedView detailedView) {
         this.detailedView = detailedView;
     }
 
     public void unBindDetailedView() {
         detailedView = null;
+    }
+
+    public void createModel() {
+        model = new Model(this);
     }
 }

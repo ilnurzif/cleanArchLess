@@ -12,4 +12,5 @@ public interface PresenterCallBack {
     void callUsersFromDB(List<GitHubUser> usersList);
     void callRecCount(Integer count);
     void callReposFromDB(List<UserRepo> repos, String userName);
+    void callError(String methodName, String errorMsg);
 }
