@@ -1,3 +1,2 @@
 include ':app'
-rootProject.name='Lesson1.MVC'
-include ':ex2app'
+rootProject.name='Lesson4Retrofit'
