@@ -4,15 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import java.util.List;
 import geekbrains.ru.lesson4retrofit.model.GitHubUser;
 import geekbrains.ru.lesson4retrofit.ui.main.MainView;
 import geekbrains.ru.lesson4retrofit.ui.main.UsersAdapter;
 import geekbrains.ru.lesson4retrofit.utility.Utility;
 
+
 public class MainActivity extends AppCompatActivity implements MainView {
     private Presenter presenter;
     private RecyclerView usersRW;
+    private Button debuginfobutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private void initView() {
         usersRW = findViewById(R.id.usersRW);
+        debuginfobutton=findViewById(R.id.debuginfobuttonid);
+        debuginfobutton.setVisibility(BuildConfig.DEBUG?View.VISIBLE:View.GONE);
     }
 
     private void initPresenter() {

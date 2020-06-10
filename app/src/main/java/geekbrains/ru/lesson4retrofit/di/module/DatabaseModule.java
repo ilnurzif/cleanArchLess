@@ -21,7 +21,7 @@ public class DatabaseModule {
     private final Context mContext;
 
    @DatabaseInfo
-    private final String mDBName = "gitusers14";
+    private final String mDBName = "gitusers15";
 
     public DatabaseModule (@ApplicationContext Context context) {
         mContext = context;
